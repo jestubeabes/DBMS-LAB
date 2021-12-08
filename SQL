@@ -1,0 +1,29 @@
+create table Book(Book_id int NOT NULL PRIMARY KEY,Title varchar(50), Language_id int,MRP int,Publisher_id int,Publisher_Date date,Volume int,Status varchar(15));
+
+create table Author(Author_id int NOT NULL PRIMARY KEY,Name varchar(50),
+Email varchar(40),Phone_Number int,Status varchar(15));
+
+create table Book_Author(Book_id int NOT NULL PRIMARY KEY,Author_id int);
+
+create table Publisher(Publisher_id int NOT NULL PRIMARY KEY,Name varchar(50),Address varchar(80));
+
+create table Member(Member_id int NOT NULL PRIMARY KEY,Name varchar(50),Branch_code int,Roll_Number int,Phone_Number int,Email_id varchar(30),Date_of_Join date, Status varchar(15));
+
+create table Book_Issue(Issue_id int NOT NULL PRIMARY KEY,Date_of_Issue date,Book_id int,Member_id int,Expected_Date_of_Return date,Status varchar(15));
+
+create table Book_Return(Issue_id int NOT NULL PRIMARY KEY,Actusl_Date_of_Return date,LateDays int,LateFee int);
+
+create table Late_Fee_Rule(FromDays int,ToDays int,Amount int,PRIMARY KEY(FromDays,ToDays,Amount));
+
+create table Language(Language_id int NOT NULL PRIMARY KEY,Name varchar(50));
+
+ALTER TABLE Book ADD FOREIGN KEY(Language_id) REFERENCES Language(Language_id);
+
+ALTER TABLE Book_Author ADD FOREIGN KEY(Book_id) REFERENCES Book(Book_id);
+
+ALTER TABLE Book_Author ADD FOREIGN KEY(Author_id) REFERENCES Author(Author_id);
+
+ALTER TABLE Book_Issue ADD FOREIGN KEY(Member_id) REFERENCES Member(Member_id);
+
+ALTER TABLE Book_Return ADD FOREIGN KEY(issue_id) REFERENCES Book_Issue(Issue_id);
+
