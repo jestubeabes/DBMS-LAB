@@ -46,6 +46,11 @@ Select Publisher.Name, count(Book_id) from Publisher,Book where Publisher.Publis
 select Author.Name from Author, Book_Author where Author.Author_id=Book_Author.Author_id group by Author.Name having count(Book_Author.A
 uthor_id)>1;
 
+select Title from Book where Book_id in (Select Book_id from Book_Issue where Book_id not in (Select Book_Issue.Book_id from Book_Return where 
+Book_Issue.Issue_id=Book_Return.Issue_id));
+
+Select Name from Member where Member_id in (Select Member_id from Book_Issue where Book_id in (Select Book_id from Book where Language_id=3)) and 
+Member_id not in (Select Member_id from Book_Issue where Book_id in (Select Book_id from Book where Language_id!=3));
 
 
 
