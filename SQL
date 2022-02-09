@@ -52,7 +52,12 @@ Book_Issue.Issue_id=Book_Return.Issue_id));
 Select Name from Member where Member_id in (Select Member_id from Book_Issue where Book_id in (Select Book_id from Book where Language_id=3)) and 
 Member_id not in (Select Member_id from Book_Issue where Book_id in (Select Book_id from Book where Language_id!=3));
 
+Alter table Book_Return change Actusl_Date_of_Return Actual_Date_of_Return date;
 
+Select sum(LateFee) Amount from Book_Return where Quarter(Actual_Date_of_Return)=Quarter(now()) and year(Actual_Date_of_Return)=year(now());
+
+select Name from Member where Member_id in (Select Member_id from Book_Issue where date(now())>Expected_Date_of_Return and Issue_id not
+in (Select Issue_id from Book_Return)) or Member_id in (Select Member_id from Book_Issue where Issue_id in (Select Issue_id from Book_Return where LateDays>0));
 
 
 
